@@ -17,8 +17,8 @@ const setupServer = () => {
     app.use(cors());
 
 
-    app.get("/", (req, res) => {
-        response = knex.select({id: 'id', userName: 'user_name'}).from('users');
+    app.get("/", async (req, res) => {
+        response = await knex.select({id: 'id', userName: 'user_name'}).from('users');
         res.status(200).send(response);
     });
 
