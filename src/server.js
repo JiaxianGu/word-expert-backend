@@ -29,11 +29,11 @@ const setupServer = () => {
         // }
         try {
             let wordToSearch = req.body.word;
-            console.log(typeof wordToSearch);
+            console.log(wordToSearch);
             const fetchResult = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordToSearch}`);
             const parsedResult = await fetchResult.json();
-            res.status(200).send(parsedResult);
-
+            const wordInfo = parsedResult[0];
+            res.status(200).send(wordInfo);
         } catch(err) {
             console.error(err.message);
         }
