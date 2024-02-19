@@ -22,6 +22,23 @@ const setupServer = () => {
         res.status(200).send(response);
     });
 
+    app.post("/search", async(req, res) => {
+        // in req.body:
+        // {
+        //     "word": "example",
+        // }
+        try {
+            let wordToSearch = req.body.word;
+            console.log(typeof wordToSearch);
+            const fetchResult = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordToSearch}`);
+            const parsedResult = await fetchResult.json();
+            res.status(200).send(parsedResult);
+
+        } catch(err) {
+            console.error(err.message);
+        }
+    })
+
 
     return app;
 }
