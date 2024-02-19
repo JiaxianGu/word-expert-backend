@@ -18,7 +18,8 @@ const setupServer = () => {
 
 
     app.get("/", (req, res) => {
-        res.status(200).send("I am up and running!");
+        response = knex.select({id: 'id', userName: 'user_name'}).from('users');
+        res.status(200).send(response);
     });
 
 
