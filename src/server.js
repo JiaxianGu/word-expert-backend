@@ -22,7 +22,7 @@ const setupServer = () => {
         res.status(200).send(response);
     });
 
-    app.post("/search", async(req, res) => {
+    app.post("/word", async(req, res) => {
         // in req.body:
         // {
         //     "word": "example",
