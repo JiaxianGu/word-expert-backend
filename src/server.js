@@ -134,6 +134,7 @@ const setupServer = () => {
             const selectResponse = await knex.from('words').select({
                 word:'word', meaning: 'meaning'
             }).where('user', user);
+            console.log(selectResponse);
             res.status(200).send(selectResponse);
         } catch(err) {
             console.error(err.message);
