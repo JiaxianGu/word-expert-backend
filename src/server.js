@@ -107,8 +107,21 @@ const setupServer = () => {
         }
     })
 
-    app.post("/add", async(req, res) {
-        
+    app.post("/add", async(req, res) => {
+        // in req.body:
+        // {
+        //     "word": "word",
+        //     "meaning": "meaning",
+        //     "user": "user_name"
+        // }
+        try {
+            const { word, meaning, user } = req.body;
+            const insertResponse = knex('words').insert({'word': word, 'meaning': meaning, 'user': user})
+            console.log(insertResponse);
+            res.status(200).send(insertResponse);
+        } catch(err) {
+            console.error(err.message);
+        }
     })
 
 

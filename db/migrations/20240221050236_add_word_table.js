@@ -7,7 +7,7 @@ exports.up = function(knex) {
     table.increments("id").primary();
     table.string('word', 255);
     table.text('meaning');
-    table.string('users').references("users.user_name");
+    table.string('user').references("users.user_name");
   })
 };
 
