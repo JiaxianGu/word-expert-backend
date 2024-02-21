@@ -69,6 +69,44 @@ const setupServer = () => {
         }
     })
 
+    app.post("/login", async(req, res) => {
+        // in req.body:
+        // {
+        //     "userName": "user_name",
+        //     "plainPassword": "plain_password"
+        // }
+        try {
+            const { userName,plainPassword } = req.body;
+            const rows = await knex(TABLE_NAME).select('*').where('user_name', userName);
+            console.log(rows);
+            if (rows.length > 0) {
+                const hashedPassword = rows[0].password;
+                bcrypt.compare(plainPassword, hashedPassword, function(err, result) {
+                    if (err) {
+                        console.log(err);
+                        res.status(500).send("Error while comparing passwords");
+                        return;
+                    }
+                    if (result) {
+                        console.log("User Authenticated");
+                        const objToReturn = {
+                            userName: rows[0].user_name
+                        }
+                        res.status(200).send(objToReturn);
+                    } else {
+                        console.log("Incorrect Password");
+                        res.status(401).send("Incorrect Password");
+                    }
+                });
+            } else {
+                console.log("User not found");
+                res.status(404).send("User not found");
+            }
+        } catch(err) {
+                console.error(err.message)
+        }
+    })
+
 
     return app;
 }
