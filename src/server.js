@@ -107,6 +107,10 @@ const setupServer = () => {
         }
     })
 
+    app.post("/add", async(req, res) {
+        
+    })
+
 
     return app;
 }
