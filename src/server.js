@@ -116,8 +116,8 @@ const setupServer = () => {
         // }
         try {
             const { word, meaning, user } = req.body;
-            const insertResponse = knex('words').insert({'word': word, 'meaning': meaning, 'user': user})
-            console.log(insertResponse);
+            const insertResponse = await knex('words').insert({'word': word, 'meaning': meaning, 'user': user})
+            // console.log(insertResponse);
             res.status(200).send(insertResponse);
         } catch(err) {
             console.error(err.message);
