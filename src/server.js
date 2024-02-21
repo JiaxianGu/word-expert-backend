@@ -124,6 +124,22 @@ const setupServer = () => {
         }
     })
 
+    app.post("/get", async(req, res) => {
+        // in req.body:
+        // {
+        //     "user": "user_name"
+        // }
+        try {
+            const user = req.body.user;
+            const selectResponse = await knex.from('words').select({
+                word:'word', meaning: 'meaning'
+            }).where('user', user);
+            res.status(200).send(selectResponse);
+        } catch(err) {
+            console.error(err.message);
+        }
+    })
+
 
     return app;
 }
